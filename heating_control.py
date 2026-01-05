@@ -63,7 +63,7 @@ TEMPERATURE_DEADBAND = 0.5  # Hysteresis in °C (turn off at target + deadband)
 # STARTUP & SAFETY CONFIGURATION
 # ============================================================================
 
-MAX_TEMPERATURE = 80.0  # Safety cutoff temperature in °C
+MAX_TEMPERATURE = 150.0  # Safety cutoff temperature in °C
 MIN_TEMPERATURE = -10.0  # Sensor error detection threshold in °C
 STARTUP_DELAY = 0.5  # Delay in seconds before starting relay checks
 SAMPLE_RATE = 1  # Readings per second
