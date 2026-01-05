@@ -1,0 +1,11 @@
+# Temperature Controller Dependencies (gpiozero version)
+# Install with: pip3 install -r requirements.txt
+
+# gpiozero - Simple GPIO control (includes MCP3204 support!)
+gpiozero>=2.0.0
+
+# spidev - Direct SPI device access (required by gpiozero for MCP3204)
+spidev>=3.5
+
+# Optional: for better control
+RPi.GPIO>=0.7.0
