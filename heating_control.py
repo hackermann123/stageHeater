@@ -43,7 +43,7 @@ VOLTAGE_DIVIDER_INVERTED = True
 # GPIO & RELAY CONFIGURATION
 # ============================================================================
 
-RELAY_GPIO_PIN = 25  # GPIO25 on Raspberry Pi
+RELAY_GPIO_PIN = 26  # GPIO26 on Raspberry Pi
 RELAY_ACTIVE_HIGH = True  # Set to False if relay activates on LOW
 USE_GPIOD = False  # Set to True to use libgpiod instead of RPi.GPIO (newer method)
 
