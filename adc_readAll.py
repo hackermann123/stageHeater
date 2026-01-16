@@ -30,7 +30,7 @@ VOLTAGE_DIVIDER_RESISTOR = 2200  # 2.2kΩ reference resistor
 # ============================================================================
 # Set to True for INVERTED configuration (3.3V ─── Rt ─── CH0 ─── R_fixed ─── GND)
 # Set to False for NORMAL configuration (3.3V ─── R_fixed ─── CH0 ─── Rt ─── GND)
-VOLTAGE_DIVIDER_INVERTED = True
+VOLTAGE_DIVIDER_INVERTED = False
 
 # ============================================================================
 # VOLTAGE DIVIDER CIRCUIT MATH
