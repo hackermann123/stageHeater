@@ -61,7 +61,7 @@ PID_KD = 0.05 # Derivative gain
 PID_OUTPUT_MIN = 0 # Min output (relay off)
 PID_OUTPUT_MAX = 1 # Max output (relay on)
 TEMPERATURE_DEADBAND = 0.5 # Hysteresis in °C (turn off at target + deadband)
-
+PID_BANG_BANG_THRESHOLD = 0.8# Switch to PID control at 'x' fraction of target temp
 # ============================================================================
 # STARTUP & SAFETY CONFIGURATION
 # ============================================================================
@@ -89,7 +89,7 @@ class TemperatureController:
 		self.kd = kd
 		self.sample_time = sample_time
 		self.deadband = deadband
-		self.bang_bang_threshold = self.target_temp * 0.75  # NEW: Threshold for switching to PID (3/4 of target)
+		self.bang_bang_threshold = self.target_temp * PID_BANG_BANG_THRESHOLD   # NEW: Threshold for switching to PID (3/4 of target)
 		self.output_min = PID_OUTPUT_MIN  # NEW: Min PID output
 		self.output_max = PID_OUTPUT_MAX  # NEW: Max PID output
 		
