@@ -89,12 +89,19 @@ class TemperatureController:
 		self.kd = kd
 		self.sample_time = sample_time
 		self.deadband = deadband
+		self.bang_bang_threshold = self.target_temp * 0.75  # NEW: Threshold for switching to PID (3/4 of target)
+		self.output_min = PID_OUTPUT_MIN  # NEW: Min PID output
+		self.output_max = PID_OUTPUT_MAX  # NEW: Max PID output
 		
 		# PID state
 		self.last_error = 0
 		self.integral = 0
 		self.last_time = time.time()
 		self.heating = False
+        
+		# NEW: Attributes for logging
+		self.pid_output = 0.0
+		self.control_mode = "bang-bang"  # Start in bang-bang mode
 
 	def update(self, current_temp):
 		"""
@@ -106,38 +113,49 @@ class TemperatureController:
 		"""
 		now = time.time()
 		dt = now - self.last_time
+
+		if current_temp < self.bang_bang_threshold:
+			# Bang-bang: Full power until 3/4 target
+			self.heating = True
+			self.pid_output = 1.0  # Full output for logging
+			self.control_mode = "bang-bang"
+			self.integral = 0  # Reset PID integral
+			self.last_error = 0  # Reset PID derivative
 		
-		# Calculate error
-		error = self.target_temp - current_temp
-		
-		# Proportional term
-		p_term = self.kp * error
-		
-		# Integral term (with anti-windup)
-		self.integral += error * dt
-		self.integral = max(-10, min(10, self.integral)) # Clamp integral
-		i_term = self.ki * self.integral
-		
-		# Derivative term
-		if dt > 0:
-			d_term = self.kd * (error - self.last_error) / dt
 		else:
-			d_term = 0
-		
-		# Hysteresis control
-		if self.heating:
-			# Currently heating - turn off if target + deadband reached
-			if current_temp >= (self.target_temp + self.deadband):
-				self.heating = False
-		else:
-			# Currently off - turn on if below target
-			if current_temp < self.target_temp:
-				self.heating = True
-		
-		self.last_error = error
+			# PID control above threshold
+			self.control_mode = "PID"
+			error = self.target_temp - current_temp
+			
+			# Proportional term
+			p_term = self.kp * error
+            
+            # Integral term (with anti-windup)
+            self.integral += error * dt
+            self.integral = max(-10, min(10, self.integral))  # Clamp integral
+            i_term = self.ki * self.integral
+            
+			# Derivative term
+			if dt > 0:
+				d_term = self.kd * (error - self.last_error) / dt
+			else:
+				d_term = 0
+			
+			# PID output
+			self.pid_output = p_term + i_term + d_term
+			self.pid_output = max(self.output_min, min(self.output_max, self.pid_output))  # Clamp output
+			
+			# Clamp integral
+			self.integral = max(-10, min(10, self.integral))  # Clamp integral
+			
+			# Relay decision: On if PID output > 0.5 (tune as needed for hysteresis)
+			self.heating = self.pid_output > 0.5
+			
+			self.last_error = error
+        
 		self.last_time = now
 		
-		return self.heating
+		return self.heating  # Ensure this line is within the update method
 
 	def set_target(self, target_temp):
 		"""Set new target temperature"""
