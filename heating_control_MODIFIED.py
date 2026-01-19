@@ -115,6 +115,7 @@ class TemperatureController:
 		dt = now - self.last_time
 
 		if current_temp < self.bang_bang_threshold:
+			print(f"DEBUG: Using bang-bang control (current_temp={current_temp:.2f} < threshold={self.bang_bang_threshold:.2f})")
 			# Bang-bang: Full power until 3/4 target
 			self.heating = True
 			self.pid_output = 1.0  # Full output for logging
@@ -124,6 +125,7 @@ class TemperatureController:
 		
 		else:
 			# PID control above threshold
+			print(f"DEBUG: Using PID control (current_temp={current_temp:.2f} >= threshold={self.bang_bang_threshold:.2f})")
 			self.control_mode = "PID"
 			error = self.target_temp - current_temp
 			
