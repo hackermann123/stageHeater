@@ -55,9 +55,9 @@ USE_GPIOD = False # Set to True to use libgpiod instead of RPi.GPIO (newer metho
 # ============================================================================
 
 PID_SAMPLE_TIME = 1.0 # Sample time in seconds
-PID_KP = 0.1106 # Proportional gain
-PID_KI = 0.021 # Integral gain
-PID_KD = 0.2768 # Derivative gain
+PID_KP = 0.015 # Proportional gain
+PID_KI = 0.002 # Integral gain
+PID_KD = 0.1 # Derivative gain
 PID_OUTPUT_MIN = 0 # Min output (relay off)
 PID_OUTPUT_MAX = 1 # Max output (relay on)
 TEMPERATURE_DEADBAND = 0.5 # Hysteresis in °C (turn off at target + deadband)
