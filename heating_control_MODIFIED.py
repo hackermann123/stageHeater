@@ -3,11 +3,11 @@
 """
 Heating Control System - Uses MCP3204 thermistor to control relay heating
 THERMISTOR: Vishay NTCALUG01A103J (10kΩ NTC, β=3984K)
-REFERENCE RESISTOR: 2.2kΩ (voltage divider - INVERTED)
+REFERENCE RESISTOR: 10kΩ (voltage divider - INVERTED)
 MCP3204 SUPPLY: 3.3V
 ADC REFERENCE: 3.3V
 RELAY: GPIO25 (Raspberry Pi Compute Module)
-CIRCUIT (INVERTED): 3.3V ─── Rt ─── CH0 ─── 2.2kΩ ─── GND
+CIRCUIT (INVERTED): 3.3V ─── Rt ─── CH0 ─── 10kΩ ─── GND
 
 MODIFICATIONS:
 - write_heater_json() now includes heater_state (On/Off)
@@ -32,7 +32,7 @@ ADC_REFERENCE_VOLTAGE = 3.3 # MCP3204 uses 3.3V as reference for 0-4095 range
 THERMISTOR_BETA = 3984 # Vishay NTCALUG01A103J beta coefficient (Kelvin)
 THERMISTOR_REFERENCE_RESISTANCE = 11450 # 10kΩ at 25°C (thermistor rated value)
 THERMISTOR_REFERENCE_TEMP = 21.60 # Reference temperature in Celsius
-VOLTAGE_DIVIDER_RESISTOR = 2200 # 2.2kΩ reference resistor
+VOLTAGE_DIVIDER_RESISTOR = 10000 # 2.2kΩ reference resistor
 
 # ============================================================================
 # VOLTAGE DIVIDER CONFIGURATION
@@ -40,13 +40,13 @@ VOLTAGE_DIVIDER_RESISTOR = 2200 # 2.2kΩ reference resistor
 
 # Set to True for INVERTED configuration (3.3V ─── Rt ─── CH0 ─── R_fixed ─── GND)
 # Set to False for NORMAL configuration (3.3V ─── R_fixed ─── CH0 ─── Rt ─── GND)
-VOLTAGE_DIVIDER_INVERTED = True
+VOLTAGE_DIVIDER_INVERTED =False
 
 # ============================================================================
 # GPIO & RELAY CONFIGURATION
 # ============================================================================
 
-RELAY_GPIO_PIN = 25 # GPIO25 on Raspberry Pi
+RELAY_GPIO_PIN = 26 # GPIO25 on Raspberry Pi
 RELAY_ACTIVE_HIGH = True # Set to False if relay activates on LOW
 USE_GPIOD = False # Set to True to use libgpiod instead of RPi.GPIO (newer method)
 
