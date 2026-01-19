@@ -129,12 +129,12 @@ class TemperatureController:
 			
 			# Proportional term
 			p_term = self.kp * error
-            
-            # Integral term (with anti-windup)
-            self.integral += error * dt
-            self.integral = max(-10, min(10, self.integral))  # Clamp integral
-            i_term = self.ki * self.integral
-            
+			
+			# Integral term (with anti-windup)
+			self.integral += error * dt
+			self.integral = max(-10, min(10, self.integral))  # Clamp integral
+			i_term = self.ki * self.integral
+			
 			# Derivative term
 			if dt > 0:
 				d_term = self.kd * (error - self.last_error) / dt
@@ -152,7 +152,7 @@ class TemperatureController:
 			self.heating = self.pid_output > 0.5
 			
 			self.last_error = error
-        
+		
 		self.last_time = now
 		
 		return self.heating  # Ensure this line is within the update method
