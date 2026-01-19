@@ -281,14 +281,16 @@ def cleanup_gpio():
 	except:
 		pass
 
-def write_heater_json(temperature_c, heater_state):
+def write_heater_json(temperature_c, heater_state, pid_output=None, control_mode=None):
 	"""
-	Write heater thermistor temperature AND state to JSON file
+	Write heater thermistor temperature, state, PID output, and control mode to JSON file
 	Flask reads this file to include heater data in logs
 	
 	Args:
 		temperature_c: Current heater thermistor temperature in °C
 		heater_state: Boolean or string ("On" or "Off")
+		pid_output: PID output value (0-1, or None if not applicable)
+		control_mode: String ("bang-bang" or "PID", or None)
 	"""
 	try:
 		# Convert boolean to string if needed
@@ -302,6 +304,11 @@ def write_heater_json(temperature_c, heater_state):
 			"heater_state": state_str,
 			"timestamp": time.time()
 		}
+		# Add optional fields if provided
+		if pid_output is not None:
+			data["pid_output"] = pid_output
+		if control_mode is not None:
+			data["control_mode"] = control_mode
 		
 		with open(JSON_OUTPUT_FILE, 'w') as f:
 			json.dump(data, f)
@@ -413,7 +420,7 @@ def main():
 			set_relay(relay_on)
 			
 			# ===== WRITE JSON FOR FLASK (MODIFIED: Now includes state) =====
-			write_heater_json(current_temp, relay_on)
+			write_heater_json(current_temp, relay_on, controller.pid_output, controller.control_mode)
 			
 			# Status message
 			error = target_temp - current_temp
