@@ -55,7 +55,7 @@ USE_GPIOD = False # Set to True to use libgpiod instead of RPi.GPIO (newer metho
 # ============================================================================
 
 PID_SAMPLE_TIME = 1.0 # Sample time in seconds
-PID_KP = 0.02 # Proportional gain
+PID_KP = 0.2 # Proportional gain
 PID_KI = 0.002 # Integral gain
 PID_KD = 0.05 # Derivative gain
 PID_OUTPUT_MIN = 0 # Min output (relay off)
