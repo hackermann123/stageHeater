@@ -23,7 +23,7 @@ ADC_REFERENCE_VOLTAGE = 3.3  # MCP3204 uses 3.3V as reference for 0-4095 range
 THERMISTOR_BETA = 3984  # Vishay NTCALUG01A103J beta coefficient (Kelvin)
 THERMISTOR_REFERENCE_RESISTANCE = 11450  # 10kΩ at 25°C (thermistor rated value)
 THERMISTOR_REFERENCE_TEMP = 21.60  # Reference temperature in Celsius
-VOLTAGE_DIVIDER_RESISTOR = 2200  # 2.2kΩ reference resistor
+VOLTAGE_DIVIDER_RESISTOR = 10000  # 2.2kΩ reference resistor
 
 # ============================================================================
 # VOLTAGE DIVIDER CONFIGURATION

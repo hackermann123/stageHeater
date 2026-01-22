@@ -28,23 +28,23 @@ ADC_REFERENCE_VOLTAGE = 3.3
 THERMISTOR_BETA = 3984
 THERMISTOR_REFERENCE_RESISTANCE = 11450
 THERMISTOR_REFERENCE_TEMP = 21.60
-VOLTAGE_DIVIDER_RESISTOR = 2200
+VOLTAGE_DIVIDER_RESISTOR = 10000
 
 # ============================================================================
 # VOLTAGE DIVIDER CONFIGURATION
 # ============================================================================
-VOLTAGE_DIVIDER_INVERTED = True
+VOLTAGE_DIVIDER_INVERTED = False
 
 # ============================================================================
 # GPIO & RELAY CONFIGURATION
 # ============================================================================
-RELAY_GPIO_PIN = 25
+RELAY_GPIO_PIN = 26
 RELAY_ACTIVE_HIGH = True
 
 # ============================================================================
 # AUTO-TUNING CONFIGURATION
 # ============================================================================
-TUNING_DURATION = 600  # Max tuning time in seconds (10 minutes)
+TUNING_DURATION = 3600  # Max tuning time in seconds (10 minutes)
 MIN_OSCILLATIONS = 3  # Minimum number of complete cycles to collect
 TEMPERATURE_TOLERANCE = 0.3  # ±0.3°C around target
 MAX_TEMPERATURE = 140.0

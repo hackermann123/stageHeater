@@ -1,0 +1,40 @@
+================================================================================
+PID AUTO-TUNING RESULTS (Ziegler-Nichols Method)
+================================================================================
+
+Target Temperature: 90.0°C
+Timestamp: 2026-01-16 17:50:41
+
+TUNING METRICS:
+  Oscillations: 3
+  Temperature Range: 28.12°C - 90.47°C (ΔT=62.35°C)
+  Samples Collected: 880
+  Tuning Duration: 879.8s
+
+CALCULATED PARAMETERS:
+  Ultimate Period (Tu): 437.14 seconds
+  Ultimate Gain (Ku): 0.019
+
+PID COEFFICIENTS:
+  Kp (Proportional): 0.0115
+  Ki (Integral):     0.0001
+  Kd (Derivative):   0.6310
+
+HOW TO USE:
+  1. Update heating_control_tuning.py with these values:
+     PID_KP = 0.0115
+     PID_KI = 0.0001
+     PID_KD = 0.6310
+
+  2. Run heating controller:
+     sudo python3 heating_control_tuning.py 90.0
+
+STATE CHANGES LOG:
+  Time(s)  | Relay | Temp(°C) | Note
+  --------------------------------------------------
+      0.0  | ON  |   28.23  | → ON
+    823.3  | OFF |   90.36  | → OFF
+    830.3  | ON  |   89.93  | → ON
+    873.3  | OFF |   90.36  | → OFF
+    874.3  | ON  |   89.93  | → ON
+    879.3  | OFF |   90.36  | → OFF
